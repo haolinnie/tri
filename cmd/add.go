@@ -16,11 +16,12 @@ limitations under the License.
 package cmd
 
 import (
+	"errors"
 	"fmt"
 	"log"
 
-	"github.com/haolinnie/tri/todo"
 	"github.com/spf13/cobra"
+	"github.com/tiega/tri/todo"
 )
 
 // addCmd represents the add command
@@ -29,21 +30,35 @@ var addCmd = &cobra.Command{
 	Short: "Add a todo",
 	Long:  `Add will create a new todo item to the list`,
 
+	Args: func(cmd *cobra.Command, args []string) error {
+		if len(args) < 1 {
+			return errors.New("Requires a todo item.")
+		}
+		return nil
+	},
+
 	Run: addRun,
 }
 
 var priority int
 
 func addRun(cmd *cobra.Command, args []string) {
+	// Get items
 	items, err := todo.ReadItems(dataFile)
 	if err != nil {
 		log.Printf("%v", err)
 	}
+
+	// Add items
 	for _, x := range args {
 		item := todo.Item{Text: x}
 		item.SetPriority(priority)
+
+		fmt.Printf("Adding todo \"%s\"\n", x)
 		items = append(items, item)
 	}
+
+	// Save items
 	err = todo.SaveItems(dataFile, items)
 	if err != nil {
 		fmt.Errorf("%v", err)

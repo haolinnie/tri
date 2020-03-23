@@ -33,9 +33,10 @@ var rootCmd = &cobra.Command{
 	Short: "Tri is a todo application",
 	Long: `Tri will help you get more done in less time.
 It's designed to be as simple as possible to help you accomplish your goals.`,
+
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
-	//	Run: func(cmd *cobra.Command, args []string) { },
+	Run: LsRun,
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
