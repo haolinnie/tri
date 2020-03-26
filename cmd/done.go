@@ -26,11 +26,13 @@ import (
 	"github.com/tiega/tri/todo"
 )
 
-// rmCmd represents the rm command
-var rmCmd = &cobra.Command{
-	Use:   "rm",
-	Short: "Remove a todo",
-	Long:  `Rm will remove a todo by its index`,
+// doneCmd represents the done command
+var doneCmd = &cobra.Command{
+	Use:     "done",
+	Aliases: []string{"d", "rm"},
+	Short:   "Remove a todo",
+	Long: `Done will remove a todo by its index.
+	Can be invoked with aliases 'd' or 'rm'.`,
 
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) < 1 {
@@ -39,10 +41,10 @@ var rmCmd = &cobra.Command{
 		return nil
 	},
 
-	Run: rmRun,
+	Run: doneRun,
 }
 
-func rmRun(cmd *cobra.Command, args []string) {
+func doneRun(cmd *cobra.Command, args []string) {
 	items, err := todo.ReadItems(dataFile)
 	if err != nil {
 		log.Printf("%v", err)
@@ -82,15 +84,15 @@ func rmRun(cmd *cobra.Command, args []string) {
 }
 
 func init() {
-	rootCmd.AddCommand(rmCmd)
+	rootCmd.AddCommand(doneCmd)
 
 	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
-	// rmCmd.PersistentFlags().String("foo", "", "A help for foo")
+	// doneCmd.PersistentFlags().String("foo", "", "A help for foo")
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
-	// rmCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	// doneCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

@@ -27,10 +27,12 @@ import (
 
 // lsCmd represents the list command
 var lsCmd = &cobra.Command{
-	Use:   "ls",
-	Short: "List todos",
-	Long:  `List todos`,
-	Run:   LsRun,
+	Use:     "ls",
+	Aliases: []string{"l"},
+	Short:   "List todos",
+	Long: `List todos.
+	Can be invoked with the alias 'l'.`,
+	Run: LsRun,
 }
 
 func LsRun(cmd *cobra.Command, args []string) {

@@ -26,9 +26,11 @@ import (
 
 // addCmd represents the add command
 var addCmd = &cobra.Command{
-	Use:   "add",
-	Short: "Add a todo",
-	Long:  `Add will create a new todo item to the list`,
+	Use:     "add",
+	Aliases: []string{"a"},
+	Short:   "Add a todo",
+	Long: `Add will create a new todo item to the list.
+	Can be invoked with the alias 'a'.`,
 
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) < 1 {
